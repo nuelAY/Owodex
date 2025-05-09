@@ -12,7 +12,7 @@ const productList = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   title: ["Amazon", "iTunes", "Google Play", "eBay"][i % 4],
   category: ["Gift Card", "Entertainment", "Digital", "Shopping"][i % 4],
-  image: `/images/${["amazon-png", "Paystack_Logo", "Google_Play-Logo", "Ebay-Logo"][i % 4]}.png`,
+  image: `/images/${["amazon-png", "Paystack_Logo", "Google_Play-Logo", "EBay-Logo"][i % 4]}.png`,
   description: `This is a brief description of product ${i + 1}. Includes benefits, usage, and availability.`,
 }));
 

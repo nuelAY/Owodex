@@ -12,7 +12,7 @@ const cardTypes = [
     { label: "Amazon", rate: 750, image: "/images/amazon-png.png" },
     { label: "iTunes", rate: 720, image: "/images/itunes.jpeg" },
     { label: "Google Play", rate: 700, image: "/images/Google_Play-Logo.png" },
-    { label: "eBay", rate: 730, image: "/images/Ebay-Logo.png" },
+    { label: "eBay", rate: 730, image: "/images/EBay-Logo.png" },
 ];
 
 export default function Page() {

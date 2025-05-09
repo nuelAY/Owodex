@@ -105,9 +105,9 @@ export default function Home() {
       {/* Trusted By */}
       <MotionWrapper>
         <section className="bg-white py-8 px-6 md:px-24 flex flex-wrap justify-center gap-12">
-          <Image src="/images/paystack_Logo.png" alt="paystack" width={300} height={500} className="h-12 object-contain" />
+          <Image src="/images/Paystack_Logo.png" alt="paystack" width={300} height={500} className="h-12 object-contain" />
           <Image src="/images/visa-card-logo.png" width={300} height={500} alt="visa" className="h-12 object-contain" />
-          <Image src="/images/MasterCard.png" width={300} height={500} alt="mastercard" className="h-12 object-contain" />
+          <Image src="/images/Mastercard.png" width={300} height={500} alt="mastercard" className="h-12 object-contain" />
           <Image src="/images/amazon-png.png" width={300} height={500} alt="amazon" className="h-12 object-contain" />
           <Image src="/images/coinbase-logo.png" width={300} height={500} alt="coinbase" className="h-12 object-contain" />
         </section>
@@ -172,7 +172,7 @@ export default function Home() {
             <Image src="/images/amazon-png.png" alt="amazon card" width={300} height={300} className="h-24 w-40 object-contain" />
             <Image src="/images/itunes.jpeg" alt="itunes card" width={300} height={300} className="h-24 w-40 object-contain" />
             <Image src="/images/Google_Play-Logo.png" alt="googleplay card" width={300} height={300} className="h-24 w-40 object-contain" />
-            <Image src="/images/Ebay-Logo.png" alt="ebay card" width={300} height={300} className="h-24 w-40 object-contain" />
+            <Image src="/images/EBay-Logo.png" alt="ebay card" width={300} height={300} className="h-24 w-40 object-contain" />
           </div>
           <div className="text-lg font-semibold mb-4">10 Mins of Loading Time | 82 Popular Gift Cards</div>
           <Button className="bg-orange-500 hover:bg-orange-600">Start Trading Now</Button>
