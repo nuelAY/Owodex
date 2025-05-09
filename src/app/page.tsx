@@ -1,30 +1,84 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { BadgePercent, Gift, Wallet } from "lucide-react";
+import { BadgePercent, Gift, Wallet, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import MotionWrapper from "./utils/MotionWrapper";
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const links = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/Products" },
+    { label: "Rate Calculator", href: "/RateCalculator" },
+    { label: "Blog", href: "/Blog" },
+    { label: "Support", href: "/Support" },
+  ];
+
+
   return (
     <main className="flex flex-col w-full">
       {/* Navbar */}
-      <MotionWrapper>
-        <nav className="w-full flex justify-between items-center px-6 py-4 bg-[#0A0F1C] text-white">
-          <div className="text-4xl font-bold text-orange-500">OWODEX</div>
-          <div className="hidden md:flex gap-6">
-            <Link href="#" className="hover:underline">Home</Link>
-            <Link href="/Products" className="hover:underline">Products</Link>
-            <Link href="/RateCalculator" className="hover:underline">Rate Calculator</Link>
-            <Link href="/Blog" className="hover:underline">Blog</Link>
-            <Link href="/Support" className="hover:underline">Support</Link>
-          </div>
-          <div className="flex gap-4">
-            <Button variant="outline" className="text-orange-500 border-white">Log In</Button>
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600">Sign Up</Button>
-          </div>
-        </nav>
-      </MotionWrapper>
+      <nav className="w-full bg-[#0A0F1C] text-white shadow-md z-50 relative">
+      <div className="flex justify-between items-center px-6 py-4">
+        <div className="text-4xl font-bold text-orange-500">OWODEX</div>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-6">
+          {links.map((link) => (
+            <Link key={link.label} href={link.href} className="hover:underline">
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Desktop Auth Buttons */}
+        <div className="hidden md:flex gap-4">
+          <Button variant="outline" className="text-orange-500 border-white">Log In</Button>
+          <Button className="bg-orange-500 hover:bg-orange-600">Sign Up</Button>
+        </div>
+
+        {/* Mobile Menu Icon */}
+        <div className="md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden flex flex-col px-6 pb-4 gap-4 bg-[#0A0F1C] border-t border-white/10"
+          >
+            {links.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-white hover:underline"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="flex flex-col gap-2 pt-4">
+              <Button variant="outline" className="text-orange-500 border-white">Log In</Button>
+              <Button className="bg-orange-500 hover:bg-orange-600">Sign Up</Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
 
       {/* Hero Section */}
       <MotionWrapper>
@@ -62,21 +116,21 @@ export default function Home() {
       {/* Offerings */}
       <MotionWrapper>
         <section className="bg-[#F9FBFD] py-16 px-6 md:px-24 grid md:grid-cols-3 gap-8 text-center">
-          <Card className="shadow-md">
+          <Card className="shadow-md shadow-orange-400">
             <CardContent className="py-6">
               <Gift className="mx-auto mb-4 h-10 w-10 text-orange-500" />
               <h3 className="font-semibold text-lg mb-2">Gift Cards</h3>
               <p className="text-sm text-gray-600">Enjoy the highest rates in Nigeria on all Gift Cards you sell to us.</p>
             </CardContent>
           </Card>
-          <Card className="shadow-md">
+          <Card className="shadow-md shadow-orange-400 ">
             <CardContent className="py-6">
               <Wallet className="mx-auto mb-4 h-10 w-10 text-orange-500" />
               <h3 className="font-semibold text-lg mb-2">Bills Payment</h3>
               <p className="text-sm text-gray-600">Pay Cable TV, Airtime, Data, and other bills easily.</p>
             </CardContent>
           </Card>
-          <Card className="shadow-md">
+          <Card className="shadow-md shadow-orange-400">
             <CardContent className="py-6">
               <BadgePercent className="mx-auto mb-4 h-10 w-10 text-orange-500" />
               <h3 className="font-semibold text-lg mb-2">Bonus/Rewards</h3>

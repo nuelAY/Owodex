@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -56,6 +57,15 @@ const fadeInUp = {
 
 function Page() {
     const [loading, setLoading] = useState(true);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const links = [
+        { label: "Home", href: "/" },
+        { label: "Products", href: "/Products" },
+        { label: "Rate Calculator", href: "/RateCalculator" },
+        { label: "Blog", href: "/Blog" },
+        { label: "Support", href: "/Support" },
+    ];
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 2000);
@@ -67,19 +77,60 @@ function Page() {
             {/* <StarBackground /> */}
 
             <div className="relative z-10">
-                <nav className="w-full flex justify-between items-center px-6 py-4 bg-[#0A0F1C] text-white">
-                    <div className="text-xl font-bold text-orange-500 ">OWODEX</div>
-                    <div className="hidden md:flex gap-6">
-                        <Link href="/" className="hover:underline">Home</Link>
-                        <Link href="/Products" className="hover:underline">Products</Link>
-                        <Link href="/RateCalculator" className="hover:underline">Rate Calculator</Link>
-                        <Link href="/Blog" className="hover:underline">Blog</Link>
-                        <Link href="/Support" className="hover:underline">Support</Link>
+                <nav className="w-full bg-[#0A0F1C] text-white shadow-md z-50 relative">
+                    <div className="flex justify-between items-center px-6 py-4">
+                        <div className="text-4xl font-bold text-orange-500">OWODEX</div>
+
+                        {/* Desktop Links */}
+                        <div className="hidden md:flex gap-6">
+                            {links.map((link) => (
+                                <Link key={link.label} href={link.href} className="hover:underline">
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
+
+                        {/* Desktop Auth Buttons */}
+                        <div className="hidden md:flex gap-4">
+                            <Button variant="outline" className="text-orange-500 border-white">Log In</Button>
+                            <Button className="bg-orange-500 hover:bg-orange-600">Sign Up</Button>
+                        </div>
+
+                        {/* Mobile Menu Icon */}
+                        <div className="md:hidden">
+                            <button onClick={() => setMenuOpen(!menuOpen)}>
+                                {menuOpen ? <X size={28} /> : <Menu size={28} />}
+                            </button>
+                        </div>
                     </div>
-                    <div className="flex gap-4">
-                        <Button variant="outline" className="text-orange-500 border-white">Log In</Button>
-                        <Button variant="default" className="bg-orange-500 hover:bg-orange-600">Sign Up</Button>
-                    </div>
+
+                    {/* Mobile Menu */}
+                    <AnimatePresence>
+                        {menuOpen && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="md:hidden flex flex-col px-6 pb-4 gap-4 bg-[#0A0F1C] border-t border-white/10"
+                            >
+                                {links.map((link) => (
+                                    <Link
+                                        key={link.label}
+                                        href={link.href}
+                                        onClick={() => setMenuOpen(false)}
+                                        className="text-white hover:underline"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                ))}
+                                <div className="flex flex-col gap-2 pt-4">
+                                    <Button variant="outline" className="text-orange-500 border-white">Log In</Button>
+                                    <Button className="bg-orange-500 hover:bg-orange-600">Sign Up</Button>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </nav>
 
                 {loading ? (
